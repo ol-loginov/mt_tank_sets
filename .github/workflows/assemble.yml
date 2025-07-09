@@ -1,0 +1,103 @@
+name: build mod archive
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        python-version: ["2.7.18"]
+#        python-version: ["2.7.18", "3.6.15", "3.7.17", "3.8.18", "3.9.18", "3.10.13", "3.11.7", "3.12.1", "3.13.0a2"]
+
+    runs-on: ubuntu-24.04
+    container:
+      image: python:2.7.18-slim
+
+    outputs:
+      name: ${{ steps.properties.outputs.name }}
+      version: ${{ steps.properties.outputs.version }}
+      artifact: ${{ steps.properties.outputs.artifact }}
+
+    steps:
+    - uses: actions/checkout@v3
+#    - name: Set up Python 2.7
+#      uses: actions/setup-python@v3
+#      with:
+#        python-version: "2.7"
+    
+    # Set environment variables
+    - name: Export Properties
+      id: properties
+      shell: bash
+      run: |
+        META="./files/meta.xml"
+        VERSION="$(grep -oP "<version>.+</version>" "$META" | sed -E 's/<version>(.*)<\/version>/\1/')"
+        NAME="$(grep -oP "<id>.+</id>" "$META" | sed -E 's/<id>(.*)<\/id>/\1/')"
+        ARTIFACT="${NAME}_${VERSION}.zip"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "name=$NAME" >> $GITHUB_OUTPUT
+        echo "artifact=$ARTIFACT" >> $GITHUB_OUTPUT
+
+    - name: Assemble archive
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        python build.py mod
+
+    # Upload plugin artifact to make it available in the next jobs
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: mod-zip
+        path: ./target/${{ steps.properties.outputs.artifact }}
+
+  # Prepare a draft release for GitHub Releases page for the manual verification
+  # If accepted and published, release workflow would be triggered
+  releaseDraft:
+    name: Release Draft
+    if: github.event_name != 'pull_request'
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+
+      # Remove old release drafts by using the curl request for the available releases with draft flag
+      - name: Remove Old Release Drafts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_REPOSITORY/releases \
+            | tr '\r\n' ' ' \
+            | jq '.[] | select(.draft == true) | .id' \
+            | xargs -I '{}' \
+          curl -X DELETE -H "Authorization: Bearer $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_REPOSITORY/releases/{}
+
+      # Check out current repository
+      - name: Fetch Sources
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
+
+      # Download plugin artifact provided by the previous job
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mod-zip
+
+      # Create new release draft - which is not publicly visible and requires manual acceptance
+      - name: Create Release Draft
+        id: createDraft
+        uses: ncipollo/release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit: ${{ github.sha }}
+          tag: v${{ needs.build.outputs.version }}
+          draft: true
+          artifacts: ${{ needs.build.outputs.artifact }}
