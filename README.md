@@ -21,32 +21,6 @@ http://forum.tanki.su/index.php?/topic/2205714-13500-редактируемые-
 Этот мод не может работать одновременно с установленной каруселью танков от XVM. Однако существует способ отключить карусель XVM, чтобы этот мод заработал.
 Подробности здесь: https://github.com/ol-loginov/wot_tank_sets/issues/2#issuecomment-1493420544
 
-# Сборка
+# Информация по сборке
 
-Благодарности проекту https://github.com/StranikS-Scan/WorldOfTanks-Decompiled
-
-### Порядок действий
-
-1)  Для разработки используется PyCharm PY-145.597.11.
-2)  Склонируйте этот git-репозиторий в `[Папка с игрой]/res_mods/[Версия игры]`.
-3)  Распакуйте `pycharm-debug.egg` в `[Папка с игрой]/res_mods/[Версия игры]/scripts/common/pydev/pycharm/pydev` и скомпилируйте папку с помощью Python 2.7.
-4)  Склонируйте репозиторий «StranikS-Scan/WorldOfTanks-Decompiled» в любую папку (назовем ее `[WOT-Decompiled]`).
-5)  Создайте пустой проект в PyCharm. Добавьте в него в качестве Content Root (корня содержимого) следующие папки: `[Папка с игрой]/res_mods/[Версия игры]` и `[WOT-Decompiled]`.
-
-## API для настроек модов (mods settings api)
-
-Оригинальную информацию можно найти здесь:
-*   https://wiki.wargaming.net/ru/ModsettingsAPI
-*   https://bitbucket.org/IzeBerg/modssettingsapi
-
-## Список модов (mods list)
-
-https://gitlab.com/wot-public-mods/mods-list
-
-## Иконки
-
-Для создания иконок используется следующая команда:
-
-```shell
-convert -size 32x17 xc:none -fill white -font "SF-Pro-Bold" -pointsize 12 -gravity center -draw "text 1,0 '1'" 1.png
-```
+В файле README-dev.md
