@@ -27,10 +27,10 @@ target_folder = os.path.join(project_folder, 'target')
 
 # archive generation
 archive_root = os.path.join(target_folder, 'archive')
-archive_file = os.path.join(target_folder, '%s_%s.mtmod' % (mod_id, mod_version))
+archive_file = os.path.join(target_folder, '%s-%s.mtmod' % (mod_id, mod_version))
 archive_res = os.path.join(archive_root, 'res')
 
-zip_file = os.path.join(target_folder, '%s_%s.zip' % (mod_id, mod_version))
+zip_file = os.path.join(target_folder, '%s-%s.zip' % (mod_id, mod_version))
 
 
 def panic(message):

@@ -1,6 +1,6 @@
 import os
 
-MOD_ID = 'com.github.ol_loginov.editable_tank_sets'
+MOD_ID = 'com.github.ol_loginov.mt_tank_sets'
 
 CONFIGURATION_FOLDER = 'mods/configs/%s' % MOD_ID
 

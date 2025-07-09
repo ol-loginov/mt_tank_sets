@@ -7,11 +7,19 @@ def _move_old_configs():
     from .constants import MOD_ID, CONFIGURATION_FOLDER
     import os
 
-    wrong_configuration_folder = 'mods/config/%s' % MOD_ID
-    if os.path.exists(wrong_configuration_folder) and not os.path.exists(CONFIGURATION_FOLDER):
-        log.info("rename wrong config folder " + wrong_configuration_folder + ' to ' + CONFIGURATION_FOLDER)
-        os.makedirs(os.path.dirname(CONFIGURATION_FOLDER))
-        os.rename(wrong_configuration_folder, CONFIGURATION_FOLDER)
+    wrong_configuration_folders = [
+        'mods/config/%s' % MOD_ID,
+        'mods/configs/com.github.ol_loginov.wot_tank_sets'
+    ]
+    for wrong_configuration_folder in wrong_configuration_folders:
+        if os.path.exists(wrong_configuration_folder) and not os.path.exists(CONFIGURATION_FOLDER):
+            if not os.path.exists(os.path.dirname(CONFIGURATION_FOLDER)):
+                log.info("create folder " + os.path.dirname(CONFIGURATION_FOLDER) + ' (in ' + os.getcwd() + ')')
+                os.makedirs(os.path.dirname(CONFIGURATION_FOLDER))
+            log.info("move folder " + wrong_configuration_folder + ' to ' + CONFIGURATION_FOLDER + ' (in ' + os.getcwd() + ')')
+            os.rename(wrong_configuration_folder, CONFIGURATION_FOLDER)
+            if not os.path.exists(CONFIGURATION_FOLDER):
+                log.error('correct configuration folder does not exist')
 
 
 def _load_settings():
