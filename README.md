@@ -33,7 +33,7 @@ http://forum.tanki.su/index.php?/topic/2205714-13500-редактируемые-
 ![Параметры мода в игре](https://github.com/ol-loginov/mt_tank_sets/raw/main/assets/screenshots/screenshot2-h500.jpg)
 
 
-![Скринкаст (без звука)](https://rutube.ru/video/9413c86ea59545bac4b7c570c0c3413a/)
+https://rutube.ru/video/9413c86ea59545bac4b7c570c0c3413a/ - скринкаст (без звука)
 
 
 # Информация по сборке
