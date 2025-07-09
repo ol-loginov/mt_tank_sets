@@ -1,4 +1,4 @@
-# Ветка на форум "Мир Танков"
+# Ветка на форуме "Мир Танков"
 
 http://forum.tanki.su/index.php?/topic/2205714-13500-редактируемые-наборы-танков-в-карусели/
 
@@ -20,6 +20,21 @@ http://forum.tanki.su/index.php?/topic/2205714-13500-редактируемые-
 
 Этот мод не может работать одновременно с установленной каруселью танков от XVM. Однако существует способ отключить карусель XVM, чтобы этот мод заработал.
 Подробности здесь: https://github.com/ol-loginov/wot_tank_sets/issues/2#issuecomment-1493420544
+
+
+# Скриншоты и скринкасты
+
+![Кнопки в панели фильтров](https://github.com/ol-loginov/mt_tank_sets/raw/main/assets/screenshots/screenshot1-h500.jpg)
+
+
+![Контекстное меню танка](https://github.com/ol-loginov/mt_tank_sets/raw/main/assets/screenshots/screenshot2-h500.jpg)
+
+
+![Параметры мода в игре](https://github.com/ol-loginov/mt_tank_sets/raw/main/assets/screenshots/screenshot2-h500.jpg)
+
+
+![Скринкаст (без звука)](https://rutube.ru/video/9413c86ea59545bac4b7c570c0c3413a/)
+
 
 # Информация по сборке
 
