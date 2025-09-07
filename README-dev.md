@@ -12,7 +12,7 @@
 
 Оригинальную информацию можно найти здесь:
 *   https://wiki.wargaming.net/ru/ModsettingsAPI
-*   https://bitbucket.org/IzeBerg/modssettingsapi
+*   https://github.com/IzeBerg/modssettingsapi/
 
 ## Список модов (mods list)
 
