@@ -13,9 +13,25 @@ from .settings import Settings as S
 
 log = logging.getLogger(__name__)
 
+is_comp7_filter_popover = lambda (self): False
+
+try:
+    from gui.Scaleform.daapi.view.battle.comp7.filter_popover import Comp7TankCarouselFilterPopover
+
+    log.info("disable VehiclesFilterPopover hooks for Comp7TankCarouselFilterPopover")
+    is_comp7_filter_popover = lambda (self): isinstance(self, Comp7TankCarouselFilterPopover)
+except:
+    log.error("cannot find Comp7TankCarouselFilterPopover")
+
+
+def enabled_for_self(self):
+    if is_comp7_filter_popover(self):
+        return False
+    return True
+
 
 @overrideClassMethod(VehiclesFilterPopover, '_generateMapping')
-def VehiclesFilterPopover__generateMapping(base, _, *args, **kwargs):
+def VehiclesFilterPopover__generateMapping(base, self, *args, **kwargs):
     mapping = base(*args, **kwargs)
 
     if S.is_mod_enabled():
@@ -28,10 +44,10 @@ def VehiclesFilterPopover__generateMapping(base, _, *args, **kwargs):
 def _VehiclesFilterPopover_getInitialVO(base, self, *args, **kwargs):
     ret = base(self, *args, **kwargs)
 
-    special_vo = ret['specials']
-    special_mapping = self._VehiclesFilterPopover__mapping[FILTER_SECTION.SPECIALS]
+    if S.is_mod_enabled() and enabled_for_self(self):
+        special_vo = ret['specials']
+        special_mapping = self._VehiclesFilterPopover__mapping[FILTER_SECTION.SPECIALS]
 
-    if S.is_mod_enabled():
         for n, collection in S.get_enabled_collections():
             filter_index = special_mapping.index(tank_collection_mapping(n))
             filter_vo = special_vo[filter_index]
