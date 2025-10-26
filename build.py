@@ -95,8 +95,8 @@ def build_archive():
     ensure_folder(archive_res)
 
     log.info('Copy sources...')
+    copy_tree(os.path.join(project_folder, 'res'), archive_res, verbose=False)
     copy_tree(os.path.join(project_folder, 'scripts'), os.path.join(archive_res, 'scripts'), verbose=False)
-    copy_tree(os.path.join(project_folder, 'gui'), os.path.join(archive_res, 'gui'), verbose=False)
     copy_tree(os.path.join(project_folder, 'files'), archive_root, verbose=False)
 
     log.info('Make archive...')
