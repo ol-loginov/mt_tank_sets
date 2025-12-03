@@ -9,7 +9,8 @@ def _move_old_configs():
 
     wrong_configuration_folders = [
         'mods/config/%s' % MOD_ID,
-        'mods/configs/com.github.ol_loginov.wot_tank_sets'
+        'mods/configs/%s' % MOD_ID,
+        'mods/configs/%s' % MOD_ID
     ]
     for wrong_configuration_folder in wrong_configuration_folders:
         if os.path.exists(wrong_configuration_folder) and not os.path.exists(CONFIGURATION_FOLDER):

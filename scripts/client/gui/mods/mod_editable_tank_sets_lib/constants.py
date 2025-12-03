@@ -1,8 +1,10 @@
 import os
 
+_APPDATA_FOLDER = os.getenv('APPDATA').replace('\\', '/')
+
 MOD_ID = 'com.github.ol_loginov.mt_tank_sets'
 
-CONFIGURATION_FOLDER = 'mods/configs/%s' % MOD_ID
+CONFIGURATION_FOLDER = '%s/Lesta/MirTankov/mods/%s' % (_APPDATA_FOLDER, MOD_ID)
 
 DEFAULT_TANK_COLLECTIONS_LIMIT = 10
 DEFAULT_TANK_COLLECTIONS_COUNT = 5
