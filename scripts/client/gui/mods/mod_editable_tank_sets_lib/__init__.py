@@ -11,7 +11,6 @@ def _move_old_configs():
         # оставлю эту локацию один раз. в следующей версии надо убрать. Нужно просто чтобы модифицированный конфиг перетащить
         'collections/config',
         'mods/config/%s' % MOD_ID,
-        'mods/configs/%s' % MOD_ID,
         'mods/configs/%s' % MOD_ID
     ]
     for wrong_configuration_folder in wrong_configuration_folders:
