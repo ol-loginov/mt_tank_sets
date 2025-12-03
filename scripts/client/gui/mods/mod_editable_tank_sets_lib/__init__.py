@@ -8,6 +8,8 @@ def _move_old_configs():
     import os
 
     wrong_configuration_folders = [
+        # оставлю эту локацию один раз. в следующей версии надо убрать. Нужно просто чтобы модифицированный конфиг перетащить
+        'collections/config',
         'mods/config/%s' % MOD_ID,
         'mods/configs/%s' % MOD_ID,
         'mods/configs/%s' % MOD_ID
